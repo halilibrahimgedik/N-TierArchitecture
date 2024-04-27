@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using NLayer.Core.DTOs;
+using NLayer.Core.DTOs.ProductDTOs;
 using NLayer.Core.DTOs.ResponseDTOs;
 using NLayer.Core.Model;
 using NLayer.Core.Services;
@@ -49,12 +49,14 @@ namespace NLayer.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(ProductDto productDto)
+        public async Task<IActionResult> Add(CreateProductDto productDto)
         {
-            var product = await _genericService.AddAsync(_mapper.Map<Product>(productDto));
-            var convertedProductDto = _mapper.Map<ProductDto>(product);
+            var product = _mapper.Map<Product>(productDto);
+            product.CreatedDate = DateTime.Now;
+            var productData = await _genericService.AddAsync(product);
+            var ProductDtoData = _mapper.Map<ProductDto>(product);
 
-            return CreateActionResult(CustomResponseDto<ProductDto>.Success(201, convertedProductDto));
+            return CreateActionResult(CustomResponseDto<ProductDto>.Success(201, ProductDtoData));
         }
 
         [HttpPut]

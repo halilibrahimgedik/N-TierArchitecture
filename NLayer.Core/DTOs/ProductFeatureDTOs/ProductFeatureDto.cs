@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NLayer.Core.DTOs
+namespace NLayer.Core.DTOs.ProductFeatureDTOs
 {
     public class ProductFeatureDto
     {
