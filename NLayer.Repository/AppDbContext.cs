@@ -16,8 +16,8 @@ namespace NLayer.Repository
 
         }
 
-        DbSet<Product> Products { get; set; }
-        DbSet<Category> Categories { get; set; }
+        public DbSet<Product> Products { get; set; }
+        public DbSet<Category> Categories { get; set; }
 
 
         // DbContextOptions nesnesi ile vt bağlantı cümleciğini program.cs den alıcağımızı bildirmiştik yukarıda. Bu yüzden bu metoda gerek yok artık
