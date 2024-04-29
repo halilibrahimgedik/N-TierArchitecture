@@ -8,8 +8,6 @@ using NLayer.Core.Services;
 
 namespace NLayer.API.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
     public class ProductsController : CustomBaseController
     {
         private readonly IMapper _mapper;
@@ -33,10 +31,11 @@ namespace NLayer.API.Controllers
             return CreateActionResult(CustomResponseDto<List<ProductDto>>.Success(200, productDtos));
         }
 
+        // 
         [HttpGet("[action]")]
         public async Task<IActionResult> GetProductsWithCategory()
         {
-            var products = await _productService.GetProductsWithCategory();
+            var products = await _productService.GetProductsWithCategoryAsync();
             return CreateActionResult(products);
         }
 

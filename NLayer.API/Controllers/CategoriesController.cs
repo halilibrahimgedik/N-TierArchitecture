@@ -4,20 +4,19 @@ using NLayer.Core.Services;
 
 namespace NLayer.API.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class CategoryController : CustomBaseController
+    public class CategoriesController : CustomBaseController
     {
         private readonly ICategoryService _categoryService;
-        public CategoryController(ICategoryService categoryService)
+        public CategoriesController(ICategoryService categoryService)
         {
             _categoryService = categoryService;
         }
 
+        // api/categories/GetCategoryByIdWithProducts/{id}
         [HttpGet("[action]/{id}")]
         public async Task<IActionResult> GetCategoryByIdWithProducts(int id)
         {
-            var category = await _categoryService.GetCategoryByIdWithProducts(id);
+            var category = await _categoryService.GetCategoryByIdWithProductsAsync(id);
 
             return CreateActionResult(category);
         }

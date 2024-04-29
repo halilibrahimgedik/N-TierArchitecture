@@ -24,14 +24,14 @@ namespace NLayer.Service.Services
             _mapper = mapper;
         }
 
-        public async Task<CustomResponseDto<CategoryWithProductsDto>> GetCategoryByIdWithProducts(int categoryId)
+        public async Task<CustomResponseDto<CategoryWithProductsDto>> GetCategoryByIdWithProductsAsync(int categoryId)
         {
             if(categoryId == 0)
             {
                 // Exception fırlat;
             }
             
-            var categoryWithProducts = await _categoryRepository.GetCategoryByIdWithProducts(categoryId);
+            var categoryWithProducts = await _categoryRepository.GetCategoryByIdWithProductsAsync(categoryId);
 
             if(categoryWithProducts == null)
             {

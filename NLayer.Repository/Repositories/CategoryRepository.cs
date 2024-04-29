@@ -15,7 +15,7 @@ namespace NLayer.Repository.Repositories
         {
         }
 
-        public async Task<Category> GetCategoryByIdWithProducts(int id)
+        public async Task<Category> GetCategoryByIdWithProductsAsync(int id)
         {
             return await _dbContext.Categories.Include(c=>c.Products).FirstOrDefaultAsync(C=> C.Id == id);
         }
