@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using NLayer.API.Filters;
 using NLayer.Core.DTOs.ProductDTOs;
 using NLayer.Core.DTOs.ResponseDTOs;
 using NLayer.Core.Model;
@@ -19,7 +20,6 @@ namespace NLayer.API.Controllers
             _productService = productService;
         }
 
-
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
@@ -29,7 +29,6 @@ namespace NLayer.API.Controllers
             return CreateActionResult(CustomResponseDto<List<ProductDto>>.Success(200, productDtos));
         }
 
-        // 
         [HttpGet("[action]")]
         public async Task<IActionResult> GetProductsWithCategory()
         {
@@ -37,6 +36,7 @@ namespace NLayer.API.Controllers
             return CreateActionResult(products);
         }
 
+        [ServiceFilter(typeof(NotFoundFilter<Product>))]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
@@ -65,6 +65,7 @@ namespace NLayer.API.Controllers
 
             return CreateActionResult(CustomResponseDto<NoResponseDto>.Success(204)); // 204 işlem başarılı oldu kodu
         }
+
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Remove(int id)

@@ -49,14 +49,14 @@ namespace NLayer.Service.Services
                 throw new ClientSideException("bad request");
             }
 
-            var isThereAny = await _genericRepository.GetByIdAsync((int)id);
+            var isThereAnyEntity = await _genericRepository.GetByIdAsync((int)id);
 
-            if (isThereAny == null)
+            if (isThereAnyEntity == null)
             {
                 throw new NotFoundException($"{typeof(T).Name} ({id}) not found");
             }
 
-            return isThereAny;
+            return isThereAnyEntity;
         }
 
         public async Task RemoveAsync(T entity)
