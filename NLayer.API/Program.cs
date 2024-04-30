@@ -20,12 +20,10 @@ using NLayer.API.Modules;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
-// Tüm Controller'larýmýza Özel Tanýmladýðýmýz ValidateFilterAttribute adlý Attribute'ümüzü Ekleyelim.
+//! Tüm Controller'larýmýza Özel Tanýmladýðýmýz ValidateFilterAttribute adlý Attribute'ümüzü Ekleyelim.
 builder.Services.AddControllers(options => options.Filters.Add(new ValidateFilterAttribute()));
 
-// Default Dönen ModelState Hata Filter'ýný Bastýralým
+//! Default Dönen ModelState Hata Filter'ýný Bastýralým
 builder.Services.Configure<ApiBehaviorOptions>(options =>
 {
     options.SuppressModelStateInvalidFilter = true;
@@ -33,9 +31,11 @@ builder.Services.Configure<ApiBehaviorOptions>(options =>
 
 builder.Services.AddFluentValidationAutoValidation().AddFluentValidationClientsideAdapters().AddValidatorsFromAssemblyContaining<ProductDtoValidator>();
 
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+//! Caching
+builder.Services.AddMemoryCache();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
@@ -50,13 +50,13 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 });
 
 
-// NotFoundFilter 
+//! NotFoundFilter 
 builder.Services.AddScoped(typeof(NotFoundFilter<>));
-//AutoMapper
+//! AutoMapper
 builder.Services.AddAutoMapper(typeof(MapProfile));
 
 
-// AutoFac
+//! AutoFac
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
 builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder => containerBuilder.RegisterModule(new RepoServiceModule()));
 
