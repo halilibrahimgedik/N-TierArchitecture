@@ -1,7 +1,36 @@
+using Autofac.Extensions.DependencyInjection;
+using Autofac;
+using NLayer.Web.Modules;
+using System.Reflection;
+using Microsoft.EntityFrameworkCore;
+using NLayer.Repository;
+using NLayer.Service.Mapping;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+// ! AppDbContext Settings
+builder.Services.AddDbContext<AppDbContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer"), option =>
+    {
+        // Migrationlarý API katmanýmýzda oluþturmamak için (Repository Katmanýnda migrationlarý oluþturmalýyýz) bu ayarý programa söylemeliyiz. Bak benim AppDbContext Sýnýfým API Katmanýnda deðil Repository Katmanýnda demeliyiz.
+        // Bu kodda Assembly sýnýfý üzerinden GetAssembly() metodu ile "AppDbContext" olarak belirttiðimiz sýnýfýn bulunduðu Assembly (proje) ismini ".GetName().Name" diyerek al diyoruz.
+        option.MigrationsAssembly(Assembly.GetAssembly(typeof(AppDbContext)).GetName().Name);
+
+        /*option.MigrationsAssembly("NLayer.Repository");*/  // tip güvensiz çalýþma. Yarýn proje katman adý deðiþirse hata alýrýz. Yukarýdaki gibi tanýmlamalýyýz.
+    });
+});
+
+// ! AutoMapper
+builder.Services.AddAutoMapper(Assembly.GetAssembly(typeof(MapProfile)));
+//builder.Services.AddAutoMapper(typeof(WebMvcMappProfile));
+
+//! AutoFac
+builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
+builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder => containerBuilder.RegisterModule(new ServiceModule()));
 
 var app = builder.Build();
 

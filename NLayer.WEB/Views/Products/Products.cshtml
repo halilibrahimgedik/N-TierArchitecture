@@ -1,0 +1,27 @@
+﻿@model List<ProductWithCategoryDto>
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr class="fw-bold text-center">
+            <th>ID</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Stock</th>
+            <th>Category</th>
+            <th>Created Date</th>
+        </tr>
+    </thead>
+    <tbody>
+            @foreach(var p in Model)
+            {
+                <tr>
+                    <td>@p.Id</td>
+                    <td>@p.Name</td>
+                    <td>@p.Price</td>
+                    <td>@p.Stock</td>
+                    <td>@p.Category.Name</td>
+                    <td>@p.CreatedDate</td>
+                </tr>
+            }
+    </tbody>
+</table>
