@@ -5,6 +5,9 @@ using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using NLayer.Repository;
 using NLayer.Service.Mapping;
+using FluentValidation.AspNetCore;
+using NLayer.Service.Validations;
+using FluentValidation;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,6 +26,9 @@ builder.Services.AddDbContext<AppDbContext>(options =>
         /*option.MigrationsAssembly("NLayer.Repository");*/  // tip güvensiz çalýþma. Yarýn proje katman adý deðiþirse hata alýrýz. Yukarýdaki gibi tanýmlamalýyýz.
     });
 });
+
+// ! FluentValidation
+builder.Services.AddFluentValidationAutoValidation().AddFluentValidationClientsideAdapters().AddValidatorsFromAssemblyContaining<ProductDtoValidator>();
 
 // ! AutoMapper
 builder.Services.AddAutoMapper(Assembly.GetAssembly(typeof(MapProfile)));
