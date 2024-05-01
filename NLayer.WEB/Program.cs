@@ -8,6 +8,7 @@ using NLayer.Service.Mapping;
 using FluentValidation.AspNetCore;
 using NLayer.Service.Validations;
 using FluentValidation;
+using NLayer.WEB.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,9 +35,15 @@ builder.Services.AddFluentValidationAutoValidation().AddFluentValidationClientsi
 builder.Services.AddAutoMapper(Assembly.GetAssembly(typeof(MapProfile)));
 //builder.Services.AddAutoMapper(typeof(WebMvcMappProfile));
 
+// ! Filters
+builder.Services.AddScoped(typeof(NotFoundFilter<>));
+
 //! AutoFac
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
 builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder => containerBuilder.RegisterModule(new ServiceModule()));
+
+
+
 
 var app = builder.Build();
 
