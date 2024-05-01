@@ -1,12 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using NLayer.Core.DTOs;
+using NLayer.Core.Model;
 using NLayer.Core.Services;
 using NLayer.WEB.Models;
 
 namespace NLayer.WEB.Filters
 {
-    public class NotFoundFilter<T> : IAsyncActionFilter where T : BaseDto
+    public class NotFoundFilter<T> : IAsyncActionFilter where T : BaseEntity
     {
         private readonly IGenericService<T> _genericService;
         public NotFoundFilter(IGenericService<T> genericService)
@@ -35,7 +36,7 @@ namespace NLayer.WEB.Filters
             }
 
             var errorViewModel = new ErrorViewModel();
-            errorViewModel.Errors.Add($"{typeof(T)} - id: {id} not found");
+            errorViewModel.Errors.Add($"{typeof(T).Name}({id}) not found");
 
             context.Result = new RedirectToActionResult("Error", "Home",errorViewModel);
         }

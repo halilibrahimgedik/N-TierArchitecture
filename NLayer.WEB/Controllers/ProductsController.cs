@@ -5,6 +5,7 @@ using NLayer.Core.DTOs.CategoryDTOs;
 using NLayer.Core.DTOs.ProductDTOs;
 using NLayer.Core.Model;
 using NLayer.Core.Services;
+using NLayer.WEB.Filters;
 using NLayer.WEB.Models;
 
 namespace NLayer.WEB.Controllers
@@ -58,7 +59,7 @@ namespace NLayer.WEB.Controllers
             return View(productDto);
         }
 
-
+        [ServiceFilter(typeof(NotFoundFilter<Product>))]
         [HttpGet]
         public async Task<IActionResult> Update(int id)
         {
@@ -90,6 +91,7 @@ namespace NLayer.WEB.Controllers
             return View(productDto);
         }
 
+        [ServiceFilter(typeof(NotFoundFilter<>))]
         [HttpPost]
         public async Task<IActionResult> Remove(int id)
         {
