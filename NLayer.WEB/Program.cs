@@ -9,6 +9,11 @@ using FluentValidation.AspNetCore;
 using NLayer.Service.Validations;
 using FluentValidation;
 using NLayer.WEB.Filters;
+using Autofac.Core;
+using NLayer.WEB.Services;
+using System.Net.Http.Headers;
+using System.Xml;
+using NLayer.Core.Model;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -42,7 +47,15 @@ builder.Services.AddScoped(typeof(NotFoundFilter<>));
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
 builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder => containerBuilder.RegisterModule(new ServiceModule()));
 
+builder.Services.AddHttpClient<ProductApiService>(opt =>
+{
+    opt.BaseAddress = new Uri(builder.Configuration["BaseUrl"]);
+});
 
+builder.Services.AddHttpClient<CategoryApiService>(opt =>
+{
+    opt.BaseAddress = new Uri(builder.Configuration["BaseUrl"]);
+});
 
 
 var app = builder.Build();
@@ -50,13 +63,12 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
-    
+    app.UseExceptionHandler("/Home/Error");
 
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
-app.UseExceptionHandler("/Home/Error");
 
 app.UseHttpsRedirection();
 

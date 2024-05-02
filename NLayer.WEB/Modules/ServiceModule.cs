@@ -34,7 +34,7 @@ namespace NLayer.Web.Modules
                   .AsImplementedInterfaces()
                   .InstancePerLifetimeScope();  // AddScoped
 
-             builder.RegisterType<ProductServiceWithNoCaching>().As<IProductService>(); 
+            builder.RegisterType<ProductServiceWithNoCaching>().As<IProductService>();
         }
     }
 }
