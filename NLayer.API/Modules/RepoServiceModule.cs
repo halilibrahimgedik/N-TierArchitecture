@@ -19,11 +19,11 @@ namespace NLayer.API.Modules
             builder.RegisterGeneric(typeof(GenericRepository<>)).As(typeof(IGenericRepository<>)).InstancePerLifetimeScope();
             builder.RegisterGeneric(typeof(GenericService<>)).As(typeof(IGenericService<>)).InstancePerLifetimeScope(); // Eski GenericService
 
-            builder.RegisterGeneric(typeof(ServiceWithDto<,>)).As(typeof(IServiceWithDto<,>)).InstancePerLifetimeScope(); // Yeni GenericService
-
-            builder.RegisterGeneric(typeof(ProductServiceWithDto)).As(typeof(IProductServiceWithDto)).InstancePerLifetimeScope(); // Yeni ProductService
+            builder.RegisterGeneric(typeof(ServiceWithDto<,>)).As(typeof(IServiceWithDto<,>)).InstancePerLifetimeScope();  // Yeni GenericService
 
             builder.RegisterType<UnitOfWork>().As<IUnitOfWork>().InstancePerLifetimeScope();
+
+            builder.RegisterType<ProductServiceWithDto>().As<IProductServiceWithDto>().InstancePerLifetimeScope();  // Yeni ProductService
 
             // Servis ve Repository'lerimizin yer aldığı Assembly'leri alalım
             var apiAssembly = Assembly.GetExecutingAssembly();
