@@ -17,9 +17,9 @@ namespace NLayer.Repository.Seeds
             {
                 Id = 1,
                 CategoryId = 1,
-                Name = "Kalem 1",
+                Name = "Faber Castell Grip",
                 Price = 100,
-                Stock = 20,
+                Stock = 200,
                 CreatedDate = DateTime.Now
 
 
@@ -28,9 +28,9 @@ namespace NLayer.Repository.Seeds
             {
                 Id = 2,
                 CategoryId = 1,
-                Name = "Kalem 2",
-                Price = 200,
-                Stock = 30,
+                Name = "Faber Castell Econ",
+                Price = 79,
+                Stock = 334,
                 CreatedDate = DateTime.Now
 
 
@@ -39,7 +39,7 @@ namespace NLayer.Repository.Seeds
              {
                  Id = 3,
                  CategoryId = 1,
-                 Name = "Kalem 3",
+                 Name = "Rotring 500",
                  Price = 600,
                  Stock = 60,
                  CreatedDate = DateTime.Now
@@ -50,7 +50,7 @@ namespace NLayer.Repository.Seeds
                {
                    Id = 4,
                    CategoryId = 2,
-                   Name = "Kitap 1",
+                   Name = "Atomik Alışkanlıklar",
                    Price = 600,
                    Stock = 60,
                    CreatedDate = DateTime.Now
@@ -61,8 +61,8 @@ namespace NLayer.Repository.Seeds
                {
                    Id = 5,
                    CategoryId = 2,
-                   Name = "Kitap 2",
-                   Price = 6600,
+                   Name = "Tutunamayanlar",
+                   Price = 459,
                    Stock = 320,
                    CreatedDate = DateTime.Now
 
