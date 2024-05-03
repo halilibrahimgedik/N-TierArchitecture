@@ -21,7 +21,9 @@ namespace NLayer.API.Modules
 
             builder.RegisterGeneric(typeof(ServiceWithDto<,>)).As(typeof(IServiceWithDto<,>)).InstancePerLifetimeScope(); // Yeni GenericService
 
-            builder.RegisterType<UnitOfWork>().As<IUnitOfWork>();
+            builder.RegisterGeneric(typeof(ProductServiceWithDto)).As(typeof(IProductServiceWithDto)).InstancePerLifetimeScope(); // Yeni ProductService
+
+            builder.RegisterType<UnitOfWork>().As<IUnitOfWork>().InstancePerLifetimeScope();
 
             // Servis ve Repository'lerimizin yer aldığı Assembly'leri alalım
             var apiAssembly = Assembly.GetExecutingAssembly();
@@ -37,7 +39,7 @@ namespace NLayer.API.Modules
                   .AsImplementedInterfaces()
                   .InstancePerLifetimeScope();  // AddScoped
 
-             builder.RegisterType<ProductServiceWithCaching>().As<IProductService>();
+            builder.RegisterType<ProductServiceWithCaching>().As<IProductService>();
         }
     }
 }

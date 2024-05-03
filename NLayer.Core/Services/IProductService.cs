@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace NLayer.Core.Services
 {
-    public interface IProductService : IGenericService<Product>
+    public interface IProductService : IGenericService<Product> // Eski IGenericService'den miras alan IProductService
     {
         Task<CustomResponseDto<List<ProductWithCategoryDto>>> GetProductsWithCategoryAsync();
     }

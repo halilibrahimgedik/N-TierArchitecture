@@ -10,12 +10,12 @@ using System.Linq.Expressions;
 
 namespace NLayer.Service.Services
 {
-    // Controller'larımıza istenilen Datayı dönen (Dto) Generic Service interface'imiz 
+    // Controller'larımıza istenilen Datayı dönen (Dto), Yeni Generic Service sınıfımız
     public class ServiceWithDto<Entity, Dto> : IServiceWithDto<Entity, Dto> where Entity : BaseEntity where Dto : class
     {
         private readonly IGenericRepository<Entity> _genericRepository;
         protected readonly IUnitOfWork _unitOfWork; // protected olarak tasarla ki özeleştirilmiş EntityService sınıfılarında kullanabilelim.
-        private readonly IMapper _mapper;
+        protected readonly IMapper _mapper;
 
         public ServiceWithDto(IGenericRepository<Entity> genericRepository, IMapper mapper, IUnitOfWork unitOfWork)
         {

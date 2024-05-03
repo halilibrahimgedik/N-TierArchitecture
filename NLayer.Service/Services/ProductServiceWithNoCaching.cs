@@ -13,7 +13,8 @@ using System.Threading.Tasks;
 
 namespace NLayer.Service.Services
 {
-    public class ProductServiceWithNoCaching : GenericService<Product>, IProductService
+    //Eski ProductService Sınıfımız
+    public class ProductServiceWithNoCaching : GenericService<Product>, IProductService 
     {
         private readonly IProductRepository _productRepository;
         private readonly IMapper _mapper;
