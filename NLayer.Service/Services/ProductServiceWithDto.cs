@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using NLayer.Core.DTOs.ProductDTOs;
 using NLayer.Core.DTOs.ResponseDTOs;
 using NLayer.Core.Model;
@@ -38,6 +39,19 @@ namespace NLayer.Service.Services
             return CustomResponseDto<ProductDto>.Success(StatusCodes.Status201Created,newDto);
         }
 
+        // Overload
+        public async Task<CustomResponseDto<IEnumerable<ProductDto>>> AddRangeAsync(IEnumerable<CreateProductDto> dtos)
+        {
+            var entities = _mapper.Map<IEnumerable<Product>>(dtos);
+
+            await _productRepository.AddRangeAsync(entities);
+            await _unitOfWork.CommitAsync();
+
+            var productDtos = _mapper.Map<IEnumerable<ProductDto>>(entities);
+
+            return CustomResponseDto<IEnumerable<ProductDto>>.Success(StatusCodes.Status201Created, productDtos);
+        }
+
         public async Task<CustomResponseDto<List<ProductWithCategoryDto>>> GetProductsWithCategoryAsync()
         {
             var products = await _productRepository.GetProductsWithCategoryAsync();
@@ -45,7 +59,7 @@ namespace NLayer.Service.Services
 
             return CustomResponseDto<List<ProductWithCategoryDto>>.Success(200, productWithCategoryDtoList);
         }
-        
+
         // Overload
         public async Task<CustomResponseDto<NoResponseDto>> UpdateAsync(ProductUpdateDto dto)
         {

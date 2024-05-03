@@ -43,12 +43,25 @@ namespace NLayer.API.Controllers
             return CreateActionResult(product);
         }
 
+        [HttpGet("Any/{id}")]
+        public async Task<IActionResult> Any(int id)
+        {
+            var result = await _productServiceWitDto.AnyAsync(x => x.Id == id);
+            return CreateActionResult(result);
+        }
+
         [HttpPost]
         public async Task<IActionResult> Add(CreateProductDto dto)
         {
             var newEntity = await _productServiceWitDto.AddAsync(dto);
 
             return CreateActionResult(newEntity);
+        }
+
+        [HttpPost("[action]")]
+        public async Task<IActionResult> AddAll(List<CreateProductDto> dtos )
+        {
+            return CreateActionResult(await _productServiceWitDto.AddRangeAsync(dtos));
         }
 
         [HttpPut]
@@ -62,6 +75,12 @@ namespace NLayer.API.Controllers
         public async Task<IActionResult> Remove(int id)
         {
             return CreateActionResult(await _productServiceWitDto.RemoveAsync(id));
+        }
+
+        [HttpDelete("[action]")]
+        public async Task<IActionResult> RemoveAll(List<int> ids)
+        {
+            return CreateActionResult(await _productServiceWitDto.RemoveRangeAsync(ids));
         }
     }
 }
