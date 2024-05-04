@@ -7,6 +7,7 @@ using NLayer.Repository.Repositories;
 using NLayer.Repository.UnitOfWorks;
 using NLayer.Service.Mapping;
 using NLayer.Service.Services;
+using NLayer.WEB.Services;
 using System.Reflection;
 
 namespace NLayer.Web.Modules
@@ -17,6 +18,8 @@ namespace NLayer.Web.Modules
         {
             builder.RegisterGeneric(typeof(GenericRepository<>)).As(typeof(IGenericRepository<>)).InstancePerLifetimeScope();
             builder.RegisterGeneric(typeof(GenericService<>)).As(typeof(IGenericService<>)).InstancePerLifetimeScope();
+
+            builder.RegisterGeneric(typeof(GenericApiService<,>)).As(typeof(IGenericApiService<,>)).InstancePerLifetimeScope();
 
             builder.RegisterType<UnitOfWork>().As<IUnitOfWork>();
 

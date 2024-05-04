@@ -1,19 +1,15 @@
-using Autofac.Extensions.DependencyInjection;
 using Autofac;
-using NLayer.Web.Modules;
-using System.Reflection;
+using Autofac.Extensions.DependencyInjection;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 using NLayer.Repository;
 using NLayer.Service.Mapping;
-using FluentValidation.AspNetCore;
 using NLayer.Service.Validations;
-using FluentValidation;
+using NLayer.Web.Modules;
 using NLayer.WEB.Filters;
-using Autofac.Core;
 using NLayer.WEB.Services;
-using System.Net.Http.Headers;
-using System.Xml;
-using NLayer.Core.Model;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -57,9 +53,6 @@ builder.Services.AddHttpClient<CategoryApiService>(opt =>
     opt.BaseAddress = new Uri(builder.Configuration["BaseUrl"]);
 });
 
-
-builder.Services.AddHttpClient();
-builder.Services.AddScoped(typeof(IGenericApiService<,>), typeof(GenericApiService<,>));
 
 
 var app = builder.Build();
