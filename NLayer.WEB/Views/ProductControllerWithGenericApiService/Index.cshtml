@@ -1,0 +1,43 @@
+﻿@model List<ProductDto>
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr class="fw-bold text-center">
+            <th>ID</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Stock</th>
+            <th>Category</th>
+            <th>Created Date</th>
+            <th>Update</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var p in Model)
+        {
+            <tr>
+
+                <td>@p.Id</td>
+                <td>@p.Name</td>
+                <td>@p.Price</td>
+                <td>@p.Stock</td>
+                <td>@p.CategoryId</td>
+                <td>@p.CreatedDate</td>
+                <td>
+                    <form method="get" asp-action="Update" asp-controller="Products">
+                        <input type="hidden" name="id" value="@p.Id" />
+                        <input type="submit" value="Update" class="btn btn-outline-success" />
+                    </form>
+                </td>
+                <td>
+                    <form method="post" asp-action="Remove" asp-controller="Products">
+                        <input type="hidden" name="id" value="@p.Id" />
+                        <input type="submit" value="Delete" class="btn btn-outline-danger" />
+                    </form>
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>

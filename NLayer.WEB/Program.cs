@@ -58,6 +58,10 @@ builder.Services.AddHttpClient<CategoryApiService>(opt =>
 });
 
 
+builder.Services.AddHttpClient();
+builder.Services.AddScoped(typeof(IGenericApiService<,>), typeof(GenericApiService<,>));
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
